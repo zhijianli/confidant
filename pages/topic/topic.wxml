@@ -1,0 +1,66 @@
+<!--index.wxml-->
+<view class="container" style='height:100vh;'>
+
+    <view class="topic" wx:if="{{!mask}}">
+             
+        <view class='progress-number colorSystem-color'> {{index + 1}}/{{testingRubric.length}}</view>
+        <view class="progress-bar-back" style="width: 80%"></view>
+        <view class="progress-bar colorSystem-background" style="width: {{width}}"></view>
+
+        <view class="topic-title">
+            <view class='p'>
+                <!-- {{index + 1}}
+                <view class='i'>/{{testingRubric.length}}</view> -->
+                <view class='span'>{{testingRubric[index].problemWord}}</view>
+            </view>
+            <!-- <image src="https://picture.120xinmao.com/{{testingRubric[index].problemPicSrc}}" wx:if="{{testingRubric[index].problemPicSrc}}"></image> -->
+            <image src="https://image-testscale.oss-cn-hangzhou.aliyuncs.com/{{testingRubric[index].problemPicSrc}}" wx:if="{{testingRubric[index].problemPicSrc}}"></image>
+        </view>
+
+        <view class="topic-list">
+            <view class="li {{fuck==item.id?'colorSystem-color':''}}" hover-class='colorSystem-color' id="{{item.id}}" wx:for="{{testingRubric[index].tsoList}}" wx:key="{{item.id}}" bindtap="report">
+                <!-- <li  v-for="(item, i) of obj.tsoList" bindtap="report(item.id)"> -->
+                {{format[index]}} {{item.optionWord}}
+                <!-- <image src="https://picture.120xinmao.com/{{item.optionPic}}" wx:if="{{item.optionPic}}"></image> -->
+                <image src="https://image-testscale.oss-cn-hangzhou.aliyuncs.com/{{item.optionPic}}" wx:if="{{item.optionPic}}"></image>
+            </view>
+        </view>
+
+        <view class="btn-wrapper">
+            <view class="pre-btn colorSystem-color" bindtap="back" wx:if="{{index !== 0}}">上一题</view>
+            <view class="submit-btn colorSystem-background" wx:if="{{index === testingRubric.length - 1}}" bindtap="submit">提交</view>
+        </view>
+    </view>
+
+     <view class="profile" wx:else> 
+    <!-- <view class="profile"> -->
+         <view class="warning colorSystem-color">性别、生日将使您的测试结果更准确</view> 
+
+        <view class="profile-list">
+            <view class='sex' bindtap="bian">
+                性别
+                <view class="select {{!(xb=='男'||xb=='女')?'no-selected':''}}">{{xb}}</view>
+            </view>
+            <view class='sex'>
+                生日
+                <!-- <input type="text" placeholder-class="placeholder" placeholder="请输入生日 格式 1991-12-18"  bindblur="qu" /> -->
+                <picker mode="date" value="{{date}}" start="1900-01-01" style='width:80%' end="{{end}}" bindchange="bindDateChange">
+                    <view class="picker {{date=='1990-01-01'?'placeholder':''}}" style='text-align:left; margin-left: 52rpx;'>
+                        {{date}}
+                    </view>
+                </picker>
+            </view>
+        </view>
+
+        <view class="btn view-btn colorSystem-background" bindtap="check">查看结果</view>
+
+        <view class="modal" wx:if="{{sexModalStatus}}">
+            <view class="modal-list">
+                <view class='bot colorSystem-color'>请选择性别</view>
+                <view class='bot' bindtap="selectItem" id='1'>男</view>
+                <view class='bot' bindtap="selectItem" id='2'>女</view>
+            </view>
+        </view>
+
+    </view>
+</view>

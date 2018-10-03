@@ -1,0 +1,201 @@
+<import src="../../wxParse/wxParse.wxml" />
+<!--index.wxml-->
+<view class="container result-view" bindtap='hide'>
+    <!--标题  -->
+    <view class="result-box result-title">{{result.relateTestScaleName}}</view>
+    <view class="result-box pei-image" wx:if="{{result.relateQualitativeImage}}">
+        <!-- <image mode="aspectFill" src="https://picture.120xinmao.com/{{result.relateQualitativeImage}}"></image> -->
+           <image mode="aspectFill" src="https://image-testscale.oss-cn-hangzhou.aliyuncs.com/{{result.relateQualitativeImage}}"></image>
+        
+    </view>
+    <!--测试结果  -->
+    <view class="result-box testing-result {{!isShow?'no-btn':''}}">
+        
+        <view class="h2 testing-result-title colorSystem-color">
+        <image class="testing-result-image" src='../image/result.png'></image>  
+        <text class="h2 test-result">测试结果：</text>
+        {{result.relateQualitativeName}}
+        
+        </view>
+
+
+        <!-- <view class="result-box result-chart" v-if="result.isShowDimensionProfile === 0"> -->
+       
+<!-- 新的结果维度图 start -->
+
+    <!-- <view class="result-box new-result-chart" wx:if="{{result.isShowDimensionProfile === 0}}">
+            <view class="new-score">
+                <span wx:for="{{scoreList}}" wx:key="{{}}">{{item}}</span>
+            </view>
+            <view class="new-result-chart-content">
+            <view class="new-zhu-wrapper">
+                    <view class="new-result-ul" bindtouchstart="index = -1" wx:if="{{result.relateDisplayMode === 0}}">
+                        <view class='new-result-li' wx:for="{{result.tsodnList}}" wx:key="{{}}" data-dimensionScore="{{item.dimensionScore}}" data-normLowScore="{{item.normLowScore}}" data-dimensionDescription="{{item.dimensionDescription}}" data-normHighScore="{{item.normHighScore}}"
+                            catchtap="showScore" wx:if="{{item.isShowDimension === 0}}">
+                             <view class='new-result-p' id='p' v-text="item.dimensionName">{{item.dimensionName}}</view>
+                            <block wx:if="{{item.dimensionScore}}">
+                                <view class="new-zhu" style="width: {{item.dimensionScore * 48.4}}rpx"></view>
+                            </block>
+                            <block wx:else>
+                                <view class="new-zhu" style="{width: '2px'}"></view>
+                            </block>
+
+                           
+                        </view>
+                    </view>
+                </view>
+            </view>
+  </view>    -->
+
+<!-- 新的结果维度图 end -->
+    
+    
+    <view class="result-box result-chart" wx:if="{{result.isShowDimensionProfile === 0}}">
+            <view class="score">
+                <span wx:for="{{scoreList}}" wx:key="{{}}">{{item}}</span>
+            </view>
+
+            <view class="result-chart-content">
+
+                <!-- 背景线 -->
+                 <!-- <view class="result-chart-line-wrapper">
+                    <view class="line" wx:for="{{scoreList}}" wx:key="{{}}"></view>
+                </view>  -->
+                <view class="zhu-wrapper">
+                    <view class="result-ul" bindtouchstart="index = -1" wx:if="{{result.relateDisplayMode === 0}}">
+                        <view class='result-li' wx:for="{{result.tsodnList}}" wx:key="{{}}" data-dimensionScore="{{item.dimensionScore}}" data-normLowScore="{{item.normLowScore}}" data-dimensionDescription="{{item.dimensionDescription}}" data-normHighScore="{{item.normHighScore}}"
+                            catchtap="showScore" wx:if="{{item.isShowDimension === 0}}">
+                            <block wx:if="{{item.dimensionScore}}">
+                                <view class="zhu colorSystem-background" style="height: {{item.dimensionScore * 48.4}}rpx"></view>
+                            </block>
+                            <block wx:else>
+                                <view class="zhu colorSystem-background" style="{height: '2px'}"></view>
+                            </block>
+
+                            <view class='result-p' id='p' v-text="item.dimensionName">{{item.dimensionName}}</view>
+                        </view>
+                    </view>
+                    <view class="result-ul" bindtouchstart="index = -1" wx:elif="{{result.relateDisplayMode === 1}}">
+                        <view class='result-li' wx:for="{{result.tsodnList}}" wx:key="{{}}" data-dimensionScore="{{item.dimensionScore}}" data-normLowScore="{{item.normLowScore}}" data-dimensionDescription="{{item.dimensionDescription}}" data-normHighScore="{{item.normHighScore}}"
+                            catchtap="showScore" wx:if="{{item.isShowDimension === 0}}">
+                            <view class="zhu colorSystem-background" style="height: {{(item.dimensionScore - 10) / 10 * 60}}rpx"></view>
+                            <view class='result-p' id='p' v-text="item.dimensionName">{{item.dimensionName}}</view>
+                        </view>
+                    </view>
+                    <view class="result-ul" bindtouchstart="index = -1" wx:else="{{result.relateDisplayMode === 2}}">
+                        <view class='result-li' wx:for="{{result.tsodnList}}" wx:key="{{}}" data-dimensionScore="{{item.dimensionScore}}" data-normLowScore="{{item.normLowScore}}" data-dimensionDescription="{{item.dimensionDescription}}" data-normHighScore="{{item.normHighScore}}"
+                            catchtap="showScore" wx:if="{{item.isShowDimension === 0}}">
+                            <view class="zhu colorSystem-background" style="height: {{(item.dimensionScore - -4) * (4.84 / 8) * 100}}rpx"></view>
+                            <view class='result-p' id='p' v-text="item.dimensionName">{{item.dimensionName}}</view>
+                        </view>
+                    </view>
+                </view>
+
+                <transition name="dd">
+                    <view class="show-score" style="top: {{scoreTop}}; left: {{scoreLeft}}" wx:if="{{index === 0}}">
+                        {{score}}
+                        <view class='sp'>正常：{{lowScore}}-{{highScore}}</view>
+                    </view>
+                </transition>
+
+                <transition name="dd">
+                    <view class="show-lat" style="top: {{scoreTop}}; left:{{ scoreLeft}}" wx:if="{{index === 1}}">
+                        <view class='sp' v-text="weidu">{{weidu}}</view>
+                    </view>
+                </transition>
+            </view>
+  </view>   
+
+
+
+
+        <view class="testing-result-item" wx:if="{{result.userName}}">
+            <view class='item-span'>
+             <image class="item-image" src='../image/tester.png'></image>  
+            测试人：</view>
+            <view class='item-p'>{{result.userName}} {{result.sex === 'man' ? '男' : '女'}} {{result.birthday | bFormat}}岁</view>
+        </view>
+         <view class="testing-result-item" wx:if="{{result.tsqMessage.briefIntroduction}}">
+            <view class='item-span'>
+             <image class="item-image" src='../image/explain.png'></image>  
+            解释：</view>
+            <view class='item-p' v-text="result.tsqMessage.briefIntroduction">{{result.tsqMessage.briefIntroduction}}</view>
+        </view> 
+        <!-- <view class="testing-result-item" wx:if="{{result.tsqMessage.concept}}">
+            <view class='item-span'>
+           
+            概念解释：</view>
+            <view class='item-p' v-text="result.tsqMessage.concept">{{result.tsqMessage.concept}}</view>
+        </view> -->
+        <!-- <view class="testing-result-item" wx:if="{{result.tsqMessage.advantage}}">
+            <view class='item-span'>优势：</view>
+            <view class='item-p' v-text="result.tsqMessage.advantage">{{result.tsqMessage.advantage}}</view>
+        </view>
+        <view class="testing-result-item" wx:if="{{result.tsqMessage.inferiority}}">
+            <view class='item-span'>劣势：</view>
+            <view class='item-p' v-text="result.tsqMessage.inferiority">{{result.tsqMessage.inferiority}}</view>
+        </view> -->
+        <view class="testing-result-item" wx:if="{{result.tsqMessage.proposal}}">
+            <view class='item-span'>
+            <image class="item-image" src='../image/proposal.png'></image>  
+            建议：</view>
+            <view class='item-p' v-html="result.tsqMessage.proposal">
+            <!-- {{result.tsqMessage.proposal}} -->
+                <template is="wxParse" data="{{wxParseData:proposal.nodes}}" />
+            </view>
+        </view>
+
+         <!-- <view class="btn-wrapper" >
+            <view class="btn retesting-btn colorSystem-background" bindtap="retest">重新测试</view>
+        </view>  -->
+          <view class="btn-wrapper" wx:if="{{isShow}}">
+            <view class="btn retesting-btn colorSystem-background" bindtap="retest">重新测试</view>
+        </view>
+        <view class="btn-wrapper yao" wx:else>
+            <view class="btn share-btn colorSystem-background" bindtap="me">我也测测</view>
+        </view>  
+    </view>
+    <!--热门测试  -->
+    <!-- <view class="result-box hot-testing">
+        <view class='hot-h2'>热门测试</view>
+        <view class='hot-div'>
+            <view class='hot-ul'>
+                <view class='hot-li' wx:for="{{testingResultHotTestingList}}" wx:key="{{}}" id='{{item.id}}' bindtap="go">
+                    <image mode="aspectFill" src="https://picture.120xinmao.com/{{item.relatePicSrc}}"></image>
+                    <view class="line-overflow" v-text="item.name">{{item.name}}</view>
+                </view>
+            </view>
+        </view>
+    </view> -->
+
+
+
+     <!-- <view class="comment-list" >
+        <view class="comment-item" bindtap="forReply"  data-name="{{item.mName}}" id="{{item.commentId}}" wx:key="{{item.mid}}" wx:key="{{}}" wx:for="{{detailComment.commonCommentList}}">
+            <view class="comment-info">
+               
+                <image src="{{item.mHeadPortrait}}"></image>
+                <view class='div'>
+                    <view class="nickname" v-text="item.mName">{{item.mName}}</view>
+                    <view class="time">{{item.commentTime}}</view>
+                </view>
+            </view>
+            <view class="comment-content" wx:if="{{item.parentCommentId === 0}}">{{item.commentContent}}</view>
+            <view class="comment-content" wx:else>回复 {{item.parentCommentName}}： {{item.commentContent}}</view>
+        </view>
+    </view>  -->
+
+
+
+
+<!-- 
+    <view class="to-reply-input-wrapper">
+        <input class="to-reply-input" focus='{{focus}}' placeholder="{{placeholder}}" bindblur="bindKeyInput" value='{{inputValue}}'></input>
+        <view class="btn send-comment-btn" bindtap="toComment" wx:if="! commentLoading">发送</view>
+        <view class="comment-loading" wx:else>发送中...</view>
+    </view>
+
+    <view class='mask' wx:if="{{mask}}" bindtap="back"></view> -->
+
+    
+</view>

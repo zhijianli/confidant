@@ -1,0 +1,37 @@
+<!--index.wxml-->
+<view class="container">
+    <!--头部开始  -->
+    <view class="classify-header-wrapper">
+        <view class="classify-header-scroll-wrapper">
+            <view class="classify-header">
+                <view class="word {{currentClassify == 0?'active colorSystem-color':''}}" bindtap="selectClassify" id="0">全部</view>
+                <view class="word {{currentClassify == item.id?'active colorSystem-color':''}}" wx:for="{{testScaleClassList}}" bindtap="selectClassify" id="{{item.id}}" wx:key="{{index}}">{{item.name}}</view>
+            </view>
+        </view>
+    </view>
+    <!--list开始  -->
+  
+  <view class='testing-list'>
+            <view class='testing-item' wx:for="{{testScaleInfoList}}" wx:key="{{index}}" bindtap='jump' id="{{item.id}}">
+                <view class='testing-info-wrapper'>
+                    <view class="testing-info">
+                        <view class="line-overflow">{{item.name}}</view>
+                      
+                         <view class="testing-count">
+                                <image class="edit-black" src='../image/edit-black.png'></image>   
+                                {{item.numberOfTest}}人参与
+                         </view>
+                    </view>
+                    <image  class='testing-info-image'  src="https://image-testscale.oss-cn-hangzhou.aliyuncs.com/{{item.relatePicSrc}}"  mode="aspectFill"></image>
+
+
+                         
+                </view>
+      
+            </view>
+        </view>  
+        
+
+
+    
+</view>

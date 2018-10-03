@@ -1,0 +1,74 @@
+<!--index.wxml-->
+
+
+
+<view>
+          <image class ="topImage"  src='https://image-testscale.oss-cn-hangzhou.aliyuncs.com/background.png' mode="aspectFill"></image> 
+          
+   </view>
+   <view>
+          <image class ="headImage"  src='{{headimgurl}}'  mode="aspectFill" ></image> 
+          <view class='userName'>{{nickname}}</view>
+   </view>
+   <!-- <view class="userInfo">
+         <view class='userName'>李志坚</view>
+     </view>
+   <view>
+   </view> -->
+
+
+<view class="container">
+    <!--头部开始  -->
+    <view class="profile-tab">
+        <view class="btn" class="{{index === 0?'colorSystem-color':'noSelected'}}" bindtap="clickTest">已完成</view>
+        <view class="btn" class="{{index === 1?'colorSystem-color':'noSelected'}}" bindtap="clickCollect">已收藏</view>
+    </view>
+    <!--list开始  -->
+    <view class="testing-list" wx:if="{{index === 0}}">
+    
+        <view class='testing-item' wx:for="{{profileTestingList}}" wx:key="{{index}}" id="{{item.id}}" bindtap='jump'>
+
+             <view class='testing-info-wrapper'>
+                <view class="testing-info">
+                    <view class="line-overflow">{{item.name || item.relateTestScaleName}}</view>
+                    <!-- <rich-text type='text' class="line-overflow rich" nodes="{{item.description || item.tsiMessage.abstractStr}}"></rich-text> -->
+                                    <view  slot="footer">测试时间： {{item.createTime}}</view>
+                    <!-- <view class="line-overflow">{{item.description || item.tsiMessage.abstractStr}}</view> -->
+                </view>
+                <image src="https://image-testscale.oss-cn-hangzhou.aliyuncs.com/{{item.relatePicSrc}}" wx:if="{{item.relatePicSrc}}" mode="aspectFill"></image>
+                <image src="https://image-testscale.oss-cn-hangzhou.aliyuncs.com/{{item.tsiMessage.relatePicSrc}}" wx:else mode="aspectFill"></image>
+            </view>
+            <!-- <view class="time" slot="footer">测试时间： {{item.createTime}}</view> -->
+        
+        </view>
+    </view>
+    <view class="testing-list" wx:if="{{index === 1}}">
+        <view class='testing-item' wx:for="{{profileCollectTestingList}}" wx:key="{{index}}" id="{{item.id}}" bindtap='jumpdetail'>
+            <view class='testing-info-wrapper'>
+                <view class="testing-info">
+                    <view class="line-overflow">{{item.name || item.relateTestScaleName}}</view>
+                          <view class="testing-count" slot="footer">
+               共{{item.numberOfTitle}}题 {{item.numberOfTest}}人参与
+            </view>
+                    <!-- <rich-text type='text' class="line-overflow rich" nodes="{{item.description || item.tsiMessage.abstractStr}}"></rich-text> -->
+                    <!-- <view class="line-overflow">{{item.description || item.tsiMessage.abstractStr}}</view> -->
+                </view>
+                <image src="https://image-testscale.oss-cn-hangzhou.aliyuncs.com/{{item.relatePicSrc}}" wx:if="typeof {{item.relatePicSrc}} !== 'undefined'" mode="aspectFill"></image>
+                <image src="https://image-testscale.oss-cn-hangzhou.aliyuncs.com/{{item.tsiMessage.relatePicSrc}}" wx:else mode="aspectFill"></image>
+            </view>
+            <!-- <view class="testing-count" slot="footer">
+                共{{item.numberOfTitle}}题·{{item.numberOfTest}}人测过
+            </view> -->
+        </view>
+    </view>
+
+    <view class="no-data colorSystem-color" wx:if="{{index === 0&&test}}">
+        <image src='../image/no-data.png'></image>
+        <view>暂无已完成测试</view>
+    </view>
+     <view class="no-data colorSystem-color" wx:if="{{index === 1&&collect}}">
+        <image src='../image/no-data.png'></image>
+        <view  v-text="text">暂无已收藏测试</view>
+    </view> 
+
+</view>

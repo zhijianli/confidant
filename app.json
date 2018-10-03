@@ -1,0 +1,41 @@
+{
+  "pages":[
+        "pages/index/index",
+        "pages/classify/classify",
+        "pages/collect/collect",
+        "pages/topic/topic",
+        "pages/result/result",
+        "pages/detail/detail",
+        "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "知己心理测试",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#20B2AA",
+    "selectedColor": "#0ba8f0",
+    "list": [
+      {
+        "text": "首页",
+        "iconPath": "pages/image/index-gray.png",
+        "selectedIconPath": "pages/image/index.png",
+        "pagePath": "pages/index/index"
+      },
+      {
+            "text": "分类",
+            "iconPath": "pages/image/classify-gray.png",
+            "selectedIconPath": "pages/image/classify.png",
+            "pagePath": "pages/classify/classify"
+          },
+      {
+        "text": "我的测试",
+        "iconPath": "pages/image/myHomePage-gray.png",
+        "selectedIconPath": "pages/image/myHomePage.png",
+        "pagePath": "pages/collect/collect"
+      }
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+<import src="../../wxParse/wxParse.wxml" />
+<!--index.wxml-->
+<view class="container ">
+    <view class="detail-wrapper">
+        <!--banner开始  -->
+        <block wx:if="{{detail.relatePicSrc}}">
+            <!-- <image class="detail-banner" mode="aspectFill"  src="{{pic+detail.relatePicSrc}}"></image> -->
+             <image class="detail-banner" mode="aspectFill"  src="https://image-testscale.oss-cn-hangzhou.aliyuncs.com/{{detail.relatePicSrc}}"></image>
+             <view class="page-cover">
+                        <view class='numberOfTest'>
+                             <image class="edit-white" src='../image/edit-white.png'></image>  
+                              {{detail.numberOfTest}}人测过
+                        </view>  
+                        <view class='numberOfTitle'>
+                              {{detail.numberOfTitle}}题
+                        </view>  
+              </view> 
+        </block>
+
+
+
+        <!-- <view class="detail-tab">
+           <view class="{{index == 0?'actived':''}}" bindtap="changeIndex" id="0">{{detail.name}}</view>
+             <block wx:if="{{detailComment.count}}">
+                <view class="{{index == 1?'actived':''}}" bindtap="changeIndex" id="1">用户评论({{detailComment.count}})</view>
+            </block>
+            <block wx:else>
+                <view class="{{index == 1?'actived':''}}" bindtap="changeIndex" id="1">用户评论</view>
+            </block> 
+
+        </view>-->
+         
+        <view class="detail-container" wx:if="{{index == 0}}">
+             <view class='h1 colorSystem-color' v-text="detail.name">{{detail.name}}</view> 
+            <!-- <view class="detail-count-info">
+                共{{detail.numberOfTitle}}题 |
+                 <view class='span'>{{detail.numberOfTest}}人测过</view> 
+            </view> -->
+            <view class="detail-intro">
+                <!-- <view class='h4'>测试介绍</view> -->
+                <view class='p' v-html="detail.description">
+                    <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+                </view>
+            </view>
+
+              <!-- <view class="testing-btn" bindtap="start" id="{{detail.id}}">开始测试</view>  -->
+              <view class="testing-btn colorSystem-background" bindtap="start" id="{{detail.id}}" wx:if="{{testingDetailIsTesting}}">开始测试</view> 
+             <view class="d-btn-wrapper" wx:else>
+                <view class="retesting-btn" bindtap="start" id="{{detail.id}}">重新测试</view>
+                 <view class="view-btn colorSystem-background" bindtap="view">查看结果</view> 
+            </view>  
+        </view>
+        <view class="detail-comment" wx:if="{{index == 1}}">
+            <view class="comment-list">
+                <view class="comment-item" bindtap="forReply" data-name="{{item.mName}}" id="{{item.commentId}}" wx:key="{{item.mid}}" wx:for="{{detailComment.commonCommentList}}">
+                    <view class="comment-info">
+                        <!-- <image wx:if="{{item.mHeadPortrait==='null'}}" src="{{pic}}default-avatar.png"></image>  -->
+                        <view wx:if="{{item.mHeadPortrait}}">
+                            <image src="{{item.mHeadPortrait}}"></image>
+                        </view>
+                        <view class='div'>
+                            <view class="nickname">{{item.mName}}</view>
+                            <view class="time">{{item.commentTime}}</view>
+                        </view>
+                    </view>
+                    <view class="comment-content" wx:if="{{item.parentCommentId === 0}}">{{item.commentContent}}</view>
+                    <view class="comment-content" wx:else>回复 {{item.parentCommentName}}： {{item.commentContent}}</view>
+                </view>
+            </view>
+            <view class="to-reply-input-wrapper">
+                <input class="to-reply-input" focus='{{focus}}' placeholder="{{placeholder}}" bindblur="bindKeyInput" value='{{inputValue}}'></input>
+                <view class="btn send-comment-btn" bindtap="toComment" wx:if="! commentLoading">发送</view>
+                <view class="comment-loading" wx:else>发送中...</view>
+            </view>
+            <!-- <comment :payload="payload" :focus="focus" @comment="commentHandler" @blur="blur" v-if="uid"></comment>  -->
+        </view>
+         <view class="g-btn-wrapper">
+            <view class="collect-btn" bindtap="collect">
+                <image src='{{shou}}'></image>
+            </view>
+        </view> 
+    </view>
+    <view class='mask' wx:if="{{mask}}" bindtap="back"></view>
+</view>

@@ -1,0 +1,127 @@
+  <import src='../../wxParse/wxParse.wxml' />  
+<!--index.wxml-->
+<view class="container">
+
+   <!--  每日鸡汤-->
+   <view class='start'>
+        <!-- <view  class="time" >
+          <text  >1月17日 星期日</text>
+        </view> -->
+          
+        <view   class="chicken-soup" >
+            <!-- <text >这个世界虽不完美，但我们依然可以疗愈自己。</text> -->
+             <image class="banner" mode="aspectFill" src='https://image-testscale.oss-cn-hangzhou.aliyuncs.com/banner.jpg'></image>   
+<!-- <image class="banner" mode="aspectFill" src=' https://image-testscale.oss-cn-hangzhou.aliyuncs.com/banner.png'></image>   -->
+             <!-- <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">sdfsfsf</button>   -->
+             <!-- <view class="banner-cover">
+             这个世界并不完美，但我们终究可以疗愈自己。。。
+             </view> -->
+        </view>
+</view>
+   <!--本周热门  -->
+   <view class='hot-testing'>
+       <view class='testing-title'>热门测试</view>
+  </view>
+    <scroll-view class='images'  scroll-x="true" >
+     <view class="imageInner" wx:for="{{hotTestLIst}}" wx:key="{{index}}" bindtap='jumpHot' id="{{item.id}}">
+        <!-- <navigator url="" open-type="navigate" > -->
+             <!-- <image class="image"  mode="aspectFill" src='https://picture.120xinmao.com/{{item.relatePicSrc}}'></image>  -->
+
+               <image class="image"  mode="aspectFill" src=' https://image-testscale.oss-cn-hangzhou.aliyuncs.com/{{item.relatePicSrc}}'></image> 
+
+        <!-- </navigator> -->
+        
+              <view class="page-cover">
+                     <!-- <text class='name'>{{item.name}}</text>
+                     <text class='numberOfTest'>{{item.numberOfTest}}</text> -->
+                       <view class='name'>{{item.name}}</view> 
+                       <view class='numberOfTest'>
+                            <image class="edit-white" src='../image/edit-white.png'></image>  
+                       {{item.numberOfTest}}人
+                       </view> 
+              </view> 
+    </view>
+</scroll-view> 
+    <!--以前形式的热门心理测试  -->
+     <!-- <view class='hot-testing'>
+        <view class='testing-title'>本周热门</view>
+        <view class='testing-list'>
+            <view class="hot-testing-item" wx:for="{{hotTestLIst}}" wx:key="{{index}}" bindtap='jumpHot' id="{{item.id}}">
+                <view class="ellipsis">{{item.name}}</view>
+                <view>{{item.numberOfTest}}已测</view>
+            </view>
+        </view>
+    </view>  -->
+
+ 
+    <view class='choice-testing'>
+        <view class='testing-title'>精选测试</view>
+           <!--写死的精选测试  -->
+          <!-- <view class='testing-list'>
+            <view class='testing-item'>
+                <view class='testing-info-wrapper'>
+                    <view class="testing-info">
+                        <view class="line-overflow">抑郁测试量表</view>
+                        <rich-text type='text' class="line-overflow rich" nodes="快来测测你性格中真实的一面吧！面具下的个人才是最真实。"></rich-text>
+                    </view>
+                    <image src="../image/image4.png"  mode="aspectFill"></image>
+                </view>
+                <view class="testing-count">
+                    共1032人测过
+                </view>
+            </view>
+            <view class='testing-item'>
+                <view class='testing-info-wrapper'>
+                    <view class="testing-info">
+                        <view class="line-overflow">抑郁测试量表</view>
+                        <rich-text type='text' class="line-overflow rich" nodes="快来测测你性格中真实的一面吧！面具下的个人才是最真实。"></rich-text>
+                    </view>
+                    <image src="../image/image4.png"  mode="aspectFill"></image>
+                </view>
+                <view class="testing-count">
+                    共1032人测过
+                </view>
+            </view>
+            <view class='testing-item'>
+                <view class='testing-info-wrapper'>
+                    <view class="testing-info">
+                        <view class="line-overflow">抑郁测试量表</view>
+                        <rich-text type='text' class="line-overflow rich" nodes="快来测测你性格中真实的一面吧！面具下的个人才是最真实。"></rich-text>
+                    </view>
+                    <image src="../image/image4.png"  mode="aspectFill"></image>
+                </view>
+                <view class="testing-count">
+                    共1032人测过
+                </view>
+            </view>
+        </view> -->
+        <!--真实的精选测试  -->
+       <view class='testing-list'>
+            <view class='testing-item' wx:for="{{selectionTestList}}" wx:key="{{index}}" bindtap='jump' id="{{item.id}}">
+                <view class='testing-info-wrapper'>
+                    <view class="testing-info">
+                        <view class="line-overflow">{{item.name}}</view>
+                        <!-- <rich-text type='text' class="line-overflow rich" nodes="{{item.description || item.tsiMessage.abstractStr}}"></rich-text> -->
+                         <view class="testing-count">
+                                <image class="edit-black" src='../image/edit-black.png'></image>   
+                                {{item.numberOfTest}}人参与
+                         </view>
+                    </view>
+                      
+                    <!-- <image  class='testing-info-image'  src="https://picture.120xinmao.com/{{item.relatePicSrc}}"  mode="aspectFill"></image> -->
+
+                    <image  class='testing-info-image'  src="https://image-testscale.oss-cn-hangzhou.aliyuncs.com/{{item.relatePicSrc}}"  mode="aspectFill"></image>
+
+
+                         
+                </view>
+      
+            </view>
+        </view>  
+        
+    </view>
+<!--   
+    <view class="my-btn" bindtap="go">
+        <image src='../image/my.png' style='width:32rpx;height:32rpx'></image>
+    </view> -->
+</view>
